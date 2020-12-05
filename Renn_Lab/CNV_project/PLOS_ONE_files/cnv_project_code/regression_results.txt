@@ -1,0 +1,50 @@
+#aCGH vs. Illumina regression
+
+> cor.test( ~ GCloess_weighted_median + log2_OREOMZEB_ILLUMINA,
++           data=filt_multihit_hybe_v_ngs,
++           method = "pearson")
+
+Pearson's product-moment correlation
+
+data:  GCloess_weighted_median and log2_OREOMZEB_ILLUMINA
+t = 29.526, df = 9217, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.2751963 0.3124966
+sample estimates:
+      cor
+0.2939584
+
+#aCGH vs. PacBio regression
+
+> cor.test( ~ GCloess_weighted_median + log2_OREOMZEB_PACBIO,
++           data=filt_multihit_hybe_v_ngs,
++           method = "pearson")
+
+Pearson's product-moment correlation
+
+data:  GCloess_weighted_median and log2_OREOMZEB_PACBIO
+t = 75.304, df = 9217, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.6043701 0.6296502
+sample estimates:
+      cor
+0.6171694
+
+#PacBio vs. Illumina regression
+
+> cor.test( ~ log2_OREOMZEB_PACBIO + log2_OREOMZEB_ILLUMINA,
++           data=filt_multihit_hybe_v_ngs,
++           method = "pearson")
+
+Pearson's product-moment correlation
+
+data:  log2_OREOMZEB_PACBIO and log2_OREOMZEB_ILLUMINA
+t = 50.212, df = 9217, p-value < 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.4472725 0.4793331
+sample estimates:
+      cor
+0.4634544

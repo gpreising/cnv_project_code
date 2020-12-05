@@ -1,0 +1,27 @@
+#############################################################################
+#### File Preparation for input to R code associated with the Manuscript ####
+#### Correspondence of aCGH and long-read genome assembly for detection  ####
+#### of copy number variation: a proof-of-concept with cichlid genomes   ####
+####                                                                     ####
+####    Gabriel A. Preising, Joshua J. Faber-Hammond, Suzy C.P. Renn     ####
+#############################################################################
+
+#BLAST alignment and input file construction
+
+#sequences of probes were stored in a file "probes.fasta" with a unique identifiers followed by the probe sequence
+
+#blastn was ran with the following commands for each of the 4 genomes (2 species x 2 technologies)
+
+blastn -db [corresponding database] -query probes.fasta -out [output file] -outfmt 6 -evalue 10 -max_target_seqs 100 -gapopen 5 -gapextend 2 -reward 2 -penalty -3 -word_size 11
+
+#probe sequence lengths were joined to the blast output files as $13
+
+#only perfect alingments where the alignment length matched the probe sequence length are considered:
+awk -F"\t" '{if ($4 == $13 && $3 == 100) { print } }' [blast output file] > [filtered blast output file]
+
+#using awk commands, the probe IDs and counts were extracted and written to the input files "hits_[species]_[platform]3.txt"
+
+awk -F"\t" '{print $1}' [filtered blast output file] | sort -g -k1,1 | uniq -c | awk -F" " '{print $2"\t"$1}' > [outfile with hits]
+
+#the outfile should contain two columns ($1 == probe_id, $2 == hits) that can be used as input in the R script
+
